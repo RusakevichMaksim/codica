@@ -1,8 +1,12 @@
-import React from "react";
-import logo from "./logo.svg";
+import React, { useEffect } from "react";
 import "./App.css";
+import { weatherAPI } from "./api/openweather";
 
 function App() {
+  useEffect(() => {
+    // weatherAPI.getCity("London");
+  }, []);
+
   return (
     <div className="App">
       <div className="card">
