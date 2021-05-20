@@ -6,14 +6,14 @@ let reducers = combineReducers({
   weatherReducer: weatherReducer,
 });
 
+type ReducersType = typeof reducers;
+export type AppStateType = ReturnType<ReducersType>;
+//@ts-ignore
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(
   reducers,
   composeEnhancers(applyMiddleware(thunkMiddleware))
 );
-
-// let store = createStore(reducers, applyMiddleware(thunkMiddleware));
-
-// for development
+//@ts-ignore
 window.store = store;
 export default store;

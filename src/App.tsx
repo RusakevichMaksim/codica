@@ -1,19 +1,15 @@
 import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
 import "./App.css";
-import { weatherAPI } from "./api/openweather";
-
+import Card from "./component/card/card";
 function App() {
-  useEffect(() => {
-    // weatherAPI.getCity("London");
-  }, []);
+  // useEffect(() => {
+  //   const result: any = useSelector((state) => state, shallowEqual);
+  // }, []);
 
   return (
     <div className="App">
-      <div className="card">
-        <div>Sity Name</div>
-        <div>Temperature Value</div>
-        <div></div>
-      </div>
+      <Card />
     </div>
   );
 }
