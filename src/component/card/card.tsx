@@ -1,36 +1,28 @@
+import { useEffect } from "react";
 import { connect } from "react-redux";
 import { compose } from "redux";
 import { AppStateType } from "../../redux/store";
-import { getWeatherThunkCreator } from "../../redux/weatherReducer";
-import CardChild from "./cardChild";
-// const Card = (props: any) => {
-//   return <CardChild  />;
-// };
-
-// let mapStateToProps = (state: AppStateType) => {
-//   return {
-//     id: state.weatherReducer.id,
-//   };
-// };
-
-// export default compose(connect(mapStateToProps), { getWeatherThunkCreator })(
-//   Card
-// );
-// // export default Card;
+import {
+  getWeatherThunkCreator,
+  setCityNameAC,
+} from "../../redux/weatherReducer";
 
 const mapDispatchToProps = {
   getWeatherThunkCreator,
+  setCityNameAC,
 };
 const mapStateToProps = (state: AppStateType) => {
   return {
     id: state.weatherReducer.id,
+    name: state.weatherReducer.citySelected,
   };
 };
 type MapStateToProps = {
-  id: number | null;
+  name: string;
 };
 type DispatchStateToProps = {
-  getWeatherThunkCreator: (id: number) => void;
+  getWeatherThunkCreator: (name: string) => void;
+  setCityNameAC: (name: string) => void;
 };
 type OwnStateToProps = {
   test: string | null;
@@ -38,9 +30,31 @@ type OwnStateToProps = {
 
 type PropsType = MapStateToProps & DispatchStateToProps;
 
-const Card: React.FC<PropsType> = (props) => {
-  console.log(props);
-  return <CardChild id={props.id} getWeather={props.getWeatherThunkCreator} />;
+const Card: React.FC<PropsType> = ({
+  name,
+  getWeatherThunkCreator,
+  setCityNameAC,
+}) => {
+  useEffect(() => {});
+  return (
+    <div>
+      <div className="card">
+        <div>City Name</div>
+        <div>Temperature Value</div>
+        <div></div>
+      </div>
+      <div>
+        <input value={name} onChange={(e) => setCityNameAC(e.target.value)} />
+        <button
+          onClick={() => {
+            getWeatherThunkCreator(name);
+          }}
+        >
+          Button
+        </button>
+      </div>
+    </div>
+  );
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Card);
