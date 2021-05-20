@@ -15,10 +15,12 @@ const mapStateToProps = (state: AppStateType) => {
   return {
     id: state.weatherReducer.id,
     name: state.weatherReducer.citySelected,
+    cityGroup: state.weatherReducer.cityGroup,
   };
 };
 type MapStateToProps = {
   name: string;
+  cityGroup: any;
 };
 type DispatchStateToProps = {
   getWeatherThunkCreator: (name: string) => void;
@@ -32,10 +34,14 @@ type PropsType = MapStateToProps & DispatchStateToProps;
 
 const Card: React.FC<PropsType> = ({
   name,
+  cityGroup,
   getWeatherThunkCreator,
   setCityNameAC,
 }) => {
-  useEffect(() => {});
+  useEffect(() => {
+    console.log(cityGroup);
+    // getWeatherThunkCreator("moscow");
+  });
   return (
     <div>
       <div className="card">

@@ -7,17 +7,18 @@ const SET_CITY_NAME = "SET-CITY-NAME";
 const SET_CITY_DATA = "SET-CITY-DATA";
 export type CityData = {
   id: number;
-  coord: {
-    lat: number;
-    lon: number;
-  };
+  lat: number;
+  lon: number;
   name: string;
   temp: number;
 };
+
 export type InitialState = {
   id: number | null;
   citySelected: string;
-  cityGroup: CityData[];
+  cityGroup: [
+    { id: number; lat: number; lon: number; name: string; temp: number }
+  ];
 };
 
 export type CityGroup = {};
@@ -28,10 +29,8 @@ let initialState: InitialState = {
   cityGroup: [
     {
       id: 1,
-      coord: {
-        lat: 1,
-        lon: 1,
-      },
+      lat: 1,
+      lon: 1,
       name: "dasd",
       temp: 1,
     },
@@ -48,12 +47,10 @@ const weatherReducer = (
     case SET_CITY_NAME:
       return { ...state, citySelected: action.data };
     case SET_CITY_DATA:
-      console.log("oridjin", state.cityGroup);
-      let stateCopy = JSON.stringify(state);
-      let newCopy = JSON.parse(stateCopy);
-      newCopy.concat(action.newItem);
-      console.log("copy", newCopy);
-      // return newCopy;
+      console.log(state.cityGroup, action.newItem);
+      state.cityGroup.push(action.newItem);
+      console.log(state.cityGroup);
+      // return { ...state, cityGroup: action.newItem };
       return state;
     default:
       return state;
@@ -83,41 +80,32 @@ export type setCityDataAC = {
   newItem: CityData;
 };
 
-export const setCityDataAC = (newItems: CityData): setCityDataAC => ({
+export const setCityDataAC = (newItem: CityData): setCityDataAC => ({
   type: SET_CITY_DATA,
-  newItem: newItems,
+  newItem: newItem,
 });
 
 type ActionTypes = SetWeatherDataAC | setCityDataAC | setCityNameAC;
-
 export const getWeatherThunkCreator = (
   name: string
 ): ThunkAction<Promise<void>, AppStateType, unknown, ActionTypes> => {
   return async (dispatch, getState) => {
     try {
-      // dispatch(setWeatherDataAC(id));
-      // console.log(name);
       let data = await weatherAPI.getCity(name);
-      await dispatch(
+      // console.log(data, "data");
+      dispatch(
         setCityDataAC({
           id: data.id,
-          coord: data.coord,
+          lon: data.coord.lon,
+          lat: data.coord.lat,
           name: data.name,
           temp: data.main.temp,
         })
       );
-
-      // console.log(data);
     } catch {
       console.error(`Oops`);
     }
   };
 };
-
-// export const setCityName = (
-//   name: string
-// ): ThunkAction<Promise<void>, AppStateType, unknown, ActionTypes> => {
-//   return async (dispatch, getState) => {};
-// };
 
 export default weatherReducer;
