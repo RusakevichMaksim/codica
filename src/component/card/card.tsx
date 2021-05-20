@@ -39,7 +39,8 @@ type OwnStateToProps = {
 type PropsType = MapStateToProps & DispatchStateToProps;
 
 const Card: React.FC<PropsType> = (props) => {
-  return <CardChild />;
+  console.log(props);
+  return <CardChild id={props.id} getWeather={props.getWeatherThunkCreator} />;
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Card);
