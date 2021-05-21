@@ -14,6 +14,7 @@ const store = createStore(
   reducers,
   composeEnhancers(applyMiddleware(thunkMiddleware))
 );
+
 //@ts-ignore
-window.store = store;
+// window.store = store;
 export default store;

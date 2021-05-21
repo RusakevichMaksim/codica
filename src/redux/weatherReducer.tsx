@@ -1,4 +1,3 @@
-import { Dispatch } from "redux";
 import { ThunkAction } from "redux-thunk";
 import { weatherAPI } from "../api/openweather";
 import { AppStateType } from "./store";
@@ -21,7 +20,7 @@ export type InitialState = {
   cityGroup: Array<CityData>;
 };
 
-export type CityGroup = {};
+export type CityGroupType = {};
 
 let initialState: InitialState = {
   id: null,
@@ -40,7 +39,7 @@ let initialState: InitialState = {
 
 const doubleNameReject = (city: string, array: Array<string>) => {
   for (let i = 0; i < array.length; i++) {
-    console.log(array[i], city);
+    // console.log(array[i], city);
     if (array[i] === city.toLowerCase()) {
       return true;
     }
@@ -58,7 +57,6 @@ const weatherReducer = (
     case SET_CITY_NAME:
       return { ...state, citySelected: action.data };
     case SET_CITY_DATA:
-      console.log(state.cityGroup, action.newItem);
       if (doubleNameReject(state.citySelected, state.cityNameList)) {
         return state;
       }
@@ -71,8 +69,13 @@ const weatherReducer = (
         cityGroup: [...state.cityGroup, action.newItem],
       };
     case UPDATE_CITY_DATA:
-      return state;
-
+      let index = state.cityNameList.indexOf(action.newItem.name.toLowerCase());
+      return Object.assign({}, state, {
+        cityGroup: state.cityGroup
+          .slice(0, index)
+          .concat([action.newItem])
+          .concat(state.cityGroup.slice(index + 1)),
+      });
     default:
       return state;
   }
@@ -120,6 +123,7 @@ type ActionTypes =
   | setCityDataType
   | setCityNameType
   | updateCityDataType;
+
 export const getWeatherThunkCreator = (
   name: string
 ): ThunkAction<Promise<void>, AppStateType, unknown, ActionTypes> => {
@@ -128,6 +132,29 @@ export const getWeatherThunkCreator = (
       let data = await weatherAPI.getCity(name);
       dispatch(
         setCityDataAC({
+          id: data.id,
+          lon: data.coord.lon,
+          lat: data.coord.lat,
+          name: data.name,
+          temp: data.main.temp,
+        })
+      );
+    } catch {
+      console.error(`Oops`);
+    }
+  };
+};
+
+export const updateWeatherThunkCreator = (
+  name: string
+): ThunkAction<Promise<void>, AppStateType, unknown, ActionTypes> => {
+  // console.log("aaaaa");
+  return async (dispatch, getState) => {
+    // console.log("1111");
+    try {
+      let data = await weatherAPI.getCity(name);
+      dispatch(
+        updateCityDataAC({
           id: data.id,
           lon: data.coord.lon,
           lat: data.coord.lat,

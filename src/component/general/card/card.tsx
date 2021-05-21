@@ -1,13 +1,13 @@
 import { useEffect } from "react";
-import { connect } from "react-redux";
-import { compose } from "redux";
+
 import { useHistory } from "react-router-dom";
 
 type Props = {
   name: string;
   temp: number;
+  update: (name: string) => void;
 };
-const Card: React.FC<Props> = ({ name, temp }) => {
+const Card: React.FC<Props> = ({ name, temp, update }) => {
   useEffect(() => {
     // console.log(cityGroup);
     // getWeatherThunkCreator("moscow");
@@ -30,7 +30,8 @@ const Card: React.FC<Props> = ({ name, temp }) => {
       <button
         onClick={(e) => {
           e.stopPropagation();
-          console.log("test2");
+          // console.log("test2");
+          update(name);
         }}
       >
         Update

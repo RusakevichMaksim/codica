@@ -1,17 +1,18 @@
 import { useEffect } from "react";
 import { connect } from "react-redux";
-import { compose } from "redux";
 import { AppStateType } from "../../redux/store";
 import {
   getWeatherThunkCreator,
+  updateWeatherThunkCreator,
   setCityNameAC,
   CityData,
 } from "../../redux/weatherReducer";
 
-import Card from "../card/card";
+import Card from "./card/card";
 
 const mapDispatchToProps = {
   getWeatherThunkCreator,
+  updateWeatherThunkCreator,
   setCityNameAC,
 };
 const mapStateToProps = (state: AppStateType) => {
@@ -27,10 +28,8 @@ type MapStateToProps = {
 };
 type DispatchStateToProps = {
   getWeatherThunkCreator: (name: string) => void;
+  updateWeatherThunkCreator: (name: string) => void;
   setCityNameAC: (name: string) => void;
-};
-type OwnStateToProps = {
-  test: string | null;
 };
 
 type PropsType = MapStateToProps & DispatchStateToProps;
@@ -39,18 +38,24 @@ const GeneralPage: React.FC<PropsType> = ({
   name,
   cityGroup,
   getWeatherThunkCreator,
+  updateWeatherThunkCreator,
   setCityNameAC,
 }) => {
   useEffect(() => {
-    // console.log(cityGroup);
-    // getWeatherThunkCreator("moscow");
-  });
-
+    updateWeatherThunkCreator("Kyiv");
+  }, []);
   return (
     <div>
       <div className="card__wrapper">
         {cityGroup.map((city: CityData, index: number) => {
-          return <Card key={name + index} name={city.name} temp={city.temp} />;
+          return (
+            <Card
+              key={name + index}
+              name={city.name}
+              temp={city.temp}
+              update={updateWeatherThunkCreator}
+            />
+          );
         })}
       </div>
 

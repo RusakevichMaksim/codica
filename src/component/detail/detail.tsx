@@ -6,7 +6,6 @@ import { AppStateType } from "../../redux/store";
 import {
   getWeatherThunkCreator,
   setCityNameAC,
-  CityData,
 } from "../../redux/weatherReducer";
 
 const mapDispatchToProps = {
@@ -36,7 +35,7 @@ type PropsType = MapStateToProps &
 
 const Detail: React.FC<PropsType> = (props) => {
   useEffect(() => {
-    console.log(props);
+    // console.log(props);
   });
   return (
     <div style={{ color: "red" }}>
