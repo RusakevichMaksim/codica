@@ -16,9 +16,7 @@ export type CityData = {
 export type InitialState = {
   id: number | null;
   citySelected: string;
-  cityGroup: [
-    { id: number; lat: number; lon: number; name: string; temp: number }
-  ];
+  cityGroup: Array<CityData>;
 };
 
 export type CityGroup = {};
@@ -48,9 +46,9 @@ const weatherReducer = (
       return { ...state, citySelected: action.data };
     case SET_CITY_DATA:
       console.log(state.cityGroup, action.newItem);
-      state.cityGroup.push(action.newItem);
-      console.log(state.cityGroup);
-      // return { ...state, cityGroup: action.newItem };
+      // state.cityGroup.push(action.newItem);
+      // console.log(state.cityGroup);
+      return { ...state, cityGroup: [...state.cityGroup, action.newItem] };
       return state;
     default:
       return state;
