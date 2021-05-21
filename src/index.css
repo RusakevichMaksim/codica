@@ -1,5 +1,23 @@
 .card {
   width: 400px;
-  height: 600px;
-  background-color: red;
+  height: 200px;
+  background-color: rgb(124, 81, 81);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  color: white;
+  margin: 20px;
+}
+.card__wrapper {
+  display: flex;
+}
+.card div {
+  margin-bottom: 20px;
+}
+.card div span {
+  color: rgb(72, 216, 72);
+}
+body {
+  background-color: black;
 }

@@ -16,6 +16,7 @@ export type CityData = {
 export type InitialState = {
   id: number | null;
   citySelected: string;
+  cityNameList: Array<string>;
   cityGroup: Array<CityData>;
 };
 
@@ -24,15 +25,26 @@ export type CityGroup = {};
 let initialState: InitialState = {
   id: null,
   citySelected: "",
+  cityNameList: ["kyiv"],
   cityGroup: [
     {
-      id: 1,
-      lat: 1,
-      lon: 1,
-      name: "dasd",
-      temp: 1,
+      id: 703448,
+      lat: 50.4333,
+      lon: 30.5167,
+      name: "Kyiv",
+      temp: 19.55,
     },
   ],
+};
+
+const doubleNameReject = (city: string, array: Array<string>) => {
+  for (let i = 0; i < array.length; i++) {
+    console.log(array[i], city);
+    if (array[i] === city.toLowerCase()) {
+      return true;
+    }
+  }
+  return false;
 };
 
 const weatherReducer = (
@@ -46,10 +58,18 @@ const weatherReducer = (
       return { ...state, citySelected: action.data };
     case SET_CITY_DATA:
       console.log(state.cityGroup, action.newItem);
-      // state.cityGroup.push(action.newItem);
-      // console.log(state.cityGroup);
-      return { ...state, cityGroup: [...state.cityGroup, action.newItem] };
-      return state;
+      if (doubleNameReject(state.citySelected, state.cityNameList)) {
+        return state;
+      }
+      return {
+        ...state,
+        cityNameList: [
+          ...state.cityNameList,
+          action.newItem.name.toLocaleLowerCase(),
+        ],
+        cityGroup: [...state.cityGroup, action.newItem],
+      };
+
     default:
       return state;
   }
