@@ -5,6 +5,7 @@ import { AppStateType } from "./store";
 const SET_WEATHER_DATA = ` SET-WEATHER-DATA`;
 const SET_CITY_NAME = "SET-CITY-NAME";
 const SET_CITY_DATA = "SET-CITY-DATA";
+const UPDATE_CITY_DATA = "UPDATE-CITY_DATA";
 export type CityData = {
   id: number;
   lat: number;
@@ -69,48 +70,62 @@ const weatherReducer = (
         ],
         cityGroup: [...state.cityGroup, action.newItem],
       };
+    case UPDATE_CITY_DATA:
+      return state;
 
     default:
       return state;
   }
 };
-export type SetWeatherDataAC = {
+export type SetWeatherDataType = {
   type: typeof SET_WEATHER_DATA;
   data: number;
 };
-export const setWeatherDataAC = (id: number): SetWeatherDataAC => ({
+export const setWeatherDataAC = (id: number): SetWeatherDataType => ({
   type: SET_WEATHER_DATA,
   data: id,
 });
 
-export type setCityNameAC = {
+export type setCityNameType = {
   type: typeof SET_CITY_NAME;
   data: string;
 };
 
-export const setCityNameAC = (name: string): setCityNameAC => ({
+export const setCityNameAC = (name: string): setCityNameType => ({
   type: SET_CITY_NAME,
   data: name,
 });
 
-export type setCityDataAC = {
+export type setCityDataType = {
   type: typeof SET_CITY_DATA;
   newItem: CityData;
 };
 
-export const setCityDataAC = (newItem: CityData): setCityDataAC => ({
+export const setCityDataAC = (newItem: CityData): setCityDataType => ({
   type: SET_CITY_DATA,
   newItem: newItem,
 });
 
-type ActionTypes = SetWeatherDataAC | setCityDataAC | setCityNameAC;
+export type updateCityDataType = {
+  type: typeof UPDATE_CITY_DATA;
+  newItem: CityData;
+};
+export const updateCityDataAC = (newItem: CityData): updateCityDataType => ({
+  type: UPDATE_CITY_DATA,
+  newItem: newItem,
+});
+
+type ActionTypes =
+  | SetWeatherDataType
+  | setCityDataType
+  | setCityNameType
+  | updateCityDataType;
 export const getWeatherThunkCreator = (
   name: string
 ): ThunkAction<Promise<void>, AppStateType, unknown, ActionTypes> => {
   return async (dispatch, getState) => {
     try {
       let data = await weatherAPI.getCity(name);
-      // console.log(data, "data");
       dispatch(
         setCityDataAC({
           id: data.id,
