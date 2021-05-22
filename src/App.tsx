@@ -6,7 +6,7 @@ const App = () => {
   return (
     <div>
       <Switch>
-        <Route exact path="/">
+        <Route exact path="/test">
           <GeneralPage />
         </Route>
         <Route path="/City/:CityName?">
