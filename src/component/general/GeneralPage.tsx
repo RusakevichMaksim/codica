@@ -46,18 +46,22 @@ const GeneralPage: React.FC<PropsType> = ({
   }, []);
   return (
     <div>
-      <div className="card__wrapper">
-        {cityGroup.map((city: CityData, index: number) => {
-          return (
-            <Card
-              key={name + index}
-              name={city.name}
-              temp={city.temp}
-              update={updateWeatherThunkCreator}
-            />
-          );
-        })}
-      </div>
+      {cityGroup ? (
+        <div className="card__wrapper">
+          {cityGroup.map((city: CityData, index: number) => {
+            return (
+              <Card
+                key={name + index}
+                name={city.name}
+                temp={city.temp}
+                update={updateWeatherThunkCreator}
+              />
+            );
+          })}
+        </div>
+      ) : (
+        <></>
+      )}
 
       <div>
         <input value={name} onChange={(e) => setCityNameAC(e.target.value)} />

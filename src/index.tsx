@@ -8,7 +8,7 @@ import { BrowserRouter } from "react-router-dom";
 
 import store from "./redux/store";
 
-// console.log(store);
+// console.log(store.getState());
 
 ReactDOM.render(
   <BrowserRouter>
