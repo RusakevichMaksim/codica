@@ -68,5 +68,3 @@ export default compose<ComponentType>(
   connect(mapStateToProps, mapDispatchToProps),
   withRouter
 )(Detail);
-
-// export default App;

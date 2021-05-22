@@ -9,8 +9,10 @@ import {
   deleteCityAC,
 } from "../../redux/weatherReducer";
 
-import Card from "./card/card";
-
+import Cards from "./card/card";
+import Button from "@material-ui/core/Button";
+import { makeStyles } from "@material-ui/core/styles";
+import { Input } from "@material-ui/core";
 const mapDispatchToProps = {
   getWeatherThunkCreator,
   updateWeatherThunkCreator,
@@ -37,6 +39,19 @@ type DispatchStateToProps = {
 
 type PropsType = MapStateToProps & DispatchStateToProps;
 
+const useStyles = makeStyles({
+  buttonSetCIty: {
+    backgroundColor: "white",
+    color: "black",
+  },
+  input: {
+    backgroundColor: "white",
+    marginRight: "20px",
+    border: "1px solid #7d7b7b",
+    borderRadius: "3px",
+  },
+});
+
 const GeneralPage: React.FC<PropsType> = ({
   name,
   cityGroup,
@@ -48,13 +63,15 @@ const GeneralPage: React.FC<PropsType> = ({
   // useEffect(() => {
   //   updateWeatherThunkCreator("Kyiv");
   // }, []);
+  const classes = useStyles();
+
   return (
     <div>
       {cityGroup ? (
         <div className="card__wrapper">
           {cityGroup.map((city: CityData, index: number) => {
             return (
-              <Card
+              <Cards
                 key={name + index}
                 name={city.name}
                 temp={city.temp}
@@ -68,15 +85,22 @@ const GeneralPage: React.FC<PropsType> = ({
         <></>
       )}
 
-      <div>
-        <input value={name} onChange={(e) => setCityNameAC(e.target.value)} />
-        <button
+      <div className="input__wrapper">
+        <Input
+          className={classes.input}
+          value={name}
+          onChange={(e) => setCityNameAC(e.target.value)}
+          placeholder="set city name"
+        />
+        <Button
+          className={classes.buttonSetCIty}
           onClick={() => {
             getWeatherThunkCreator(name);
           }}
+          size="small"
         >
-          Button
-        </button>
+          Update
+        </Button>
       </div>
     </div>
   );

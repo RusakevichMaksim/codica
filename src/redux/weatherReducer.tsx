@@ -48,7 +48,8 @@ let initialState: InitialState = {
 
 const doubleNameReject = (city: string, array: Array<string>) => {
   for (let i = 0; i < array.length; i++) {
-    if (array[i] === city.toLowerCase()) {
+    console.log(array[i].toLowerCase(), city.toLowerCase());
+    if (array[i].toLowerCase() === city.toLowerCase()) {
       return true;
     }
   }
@@ -65,6 +66,7 @@ const weatherReducer = (
     case SET_CITY_NAME:
       return { ...state, citySelected: action.data };
     case SET_CITY_DATA:
+      // console.log(state);
       if (doubleNameReject(state.citySelected, state.cityNameList)) {
         return state;
       }

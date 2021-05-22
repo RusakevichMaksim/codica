@@ -1,16 +1,8 @@
-.card {
-  width: 400px;
-  height: 200px;
-  background-color: rgb(124, 81, 81);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  color: white;
-  margin: 20px;
-}
 .card__wrapper {
   display: flex;
+  font-size: 20px;
+  flex-wrap: wrap;
+  text-align: center;
 }
 .card div {
   margin-bottom: 20px;
@@ -19,12 +11,20 @@
   color: rgb(72, 216, 72);
 }
 body {
-  background-color: black;
+  background-color: rgb(231, 226, 226);
 }
 .button__wrapper {
   display: flex;
+  justify-content: center;
 }
 .button__wrapper button {
   padding: 10px;
   margin: 20px;
+}
+.cardData {
+  color: rgb(15, 226, 15);
+}
+
+.input__wrapper {
+  margin: 10px 50px;
 }
