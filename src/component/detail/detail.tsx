@@ -50,9 +50,13 @@ const Detail: React.FC<PropsType> = (props) => {
       currentData = event;
     }
   });
-  useEffect(() => {
-    console.log(props);
-  });
+  // useEffect(() => {
+  //   fetch(
+  //     `https://api.openweathermap.org/data/2.5/onecall?lat=${currentData.lat}&lon=${currentData.lon}&units=metric&exclude=hourly&appid=968cb1decfce0d451e6ef8dfe6e0713c`
+  //   ).then((e) => {
+  //     console.log(e);
+  //   });
+  // });
   return (
     <div className="details__wrapper">
       <div>

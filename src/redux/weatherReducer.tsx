@@ -21,7 +21,6 @@ export type CityData = {
 export type InitialState = {
   id: number | null;
   citySelected: string;
-  cityNameList: Array<string>;
   cityGroup: Array<CityData>;
 };
 
@@ -30,7 +29,6 @@ export type CityGroupType = {};
 let initialState: InitialState = {
   id: null,
   citySelected: "",
-  cityNameList: ["kyiv"],
   cityGroup: [
     {
       id: 703448,
@@ -46,10 +44,9 @@ let initialState: InitialState = {
   ],
 };
 
-const doubleNameReject = (city: string, array: Array<string>) => {
+const doubleNameReject = (id: number, array: Array<CityData>) => {
   for (let i = 0; i < array.length; i++) {
-    console.log(array[i].toLowerCase(), city.toLowerCase());
-    if (array[i].toLowerCase() === city.toLowerCase()) {
+    if (array[i].id === id) {
       return true;
     }
   }
@@ -66,20 +63,18 @@ const weatherReducer = (
     case SET_CITY_NAME:
       return { ...state, citySelected: action.data };
     case SET_CITY_DATA:
-      // console.log(state);
-      if (doubleNameReject(state.citySelected, state.cityNameList)) {
+      if (doubleNameReject(action.newItem.id, state.cityGroup)) {
         return state;
       }
       return {
         ...state,
-        cityNameList: [
-          ...state.cityNameList,
-          action.newItem.name.toLocaleLowerCase(),
-        ],
         cityGroup: [...state.cityGroup, action.newItem],
       };
     case UPDATE_CITY_DATA:
-      let index = state.cityNameList.indexOf(action.newItem.name.toLowerCase());
+      let index = state.cityGroup.findIndex(
+        (i) => i.name.toLowerCase() === action.newItem.name.toLowerCase()
+      );
+      console.log(index);
       return Object.assign({}, state, {
         cityGroup: state.cityGroup
           .slice(0, index)
@@ -87,17 +82,14 @@ const weatherReducer = (
           .concat(state.cityGroup.slice(index + 1)),
       });
     case DELETE_CITY:
-      let indexEl = state.cityNameList.indexOf(action.name.toLowerCase());
-      console.log(state.cityNameList.indexOf(action.name));
+      let indexEl = state.cityGroup.findIndex(
+        (i) => i.name.toLowerCase() === action.name.toLowerCase()
+      );
       return {
         ...state,
         cityGroup: [
           ...state.cityGroup.slice(0, indexEl),
           ...state.cityGroup.slice(indexEl + 1),
-        ],
-        cityNameList: [
-          ...state.cityNameList.slice(0, indexEl),
-          ...state.cityNameList.slice(indexEl + 1),
         ],
       };
     default:
