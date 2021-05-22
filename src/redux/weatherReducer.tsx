@@ -5,6 +5,7 @@ const SET_WEATHER_DATA = ` SET-WEATHER-DATA`;
 const SET_CITY_NAME = "SET-CITY-NAME";
 const SET_CITY_DATA = "SET-CITY-DATA";
 const UPDATE_CITY_DATA = "UPDATE-CITY_DATA";
+const DELETE_CITY = "DELETE_CITY";
 export type CityData = {
   id: number;
   lat: number;
@@ -83,6 +84,20 @@ const weatherReducer = (
           .concat([action.newItem])
           .concat(state.cityGroup.slice(index + 1)),
       });
+    case DELETE_CITY:
+      let indexEl = state.cityNameList.indexOf(action.name.toLowerCase());
+      console.log(state.cityNameList.indexOf(action.name));
+      return {
+        ...state,
+        cityGroup: [
+          ...state.cityGroup.slice(0, indexEl),
+          ...state.cityGroup.slice(indexEl + 1),
+        ],
+        cityNameList: [
+          ...state.cityNameList.slice(0, indexEl),
+          ...state.cityNameList.slice(indexEl + 1),
+        ],
+      };
     default:
       return state;
   }
@@ -125,11 +140,21 @@ export const updateCityDataAC = (newItem: CityData): updateCityDataType => ({
   newItem: newItem,
 });
 
+export type deleteCityType = {
+  type: typeof DELETE_CITY;
+  name: string;
+};
+export const deleteCityAC = (name: string): deleteCityType => ({
+  type: DELETE_CITY,
+  name: name,
+});
+
 type ActionTypes =
   | SetWeatherDataType
   | setCityDataType
   | setCityNameType
-  | updateCityDataType;
+  | updateCityDataType
+  | deleteCityType;
 
 export const getWeatherThunkCreator = (
   name: string

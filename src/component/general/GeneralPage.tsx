@@ -6,6 +6,7 @@ import {
   updateWeatherThunkCreator,
   setCityNameAC,
   CityData,
+  deleteCityAC,
 } from "../../redux/weatherReducer";
 
 import Card from "./card/card";
@@ -14,6 +15,7 @@ const mapDispatchToProps = {
   getWeatherThunkCreator,
   updateWeatherThunkCreator,
   setCityNameAC,
+  deleteCityAC,
 };
 const mapStateToProps = (state: AppStateType) => {
   return {
@@ -30,6 +32,7 @@ type DispatchStateToProps = {
   getWeatherThunkCreator: (name: string) => void;
   updateWeatherThunkCreator: (name: string) => void;
   setCityNameAC: (name: string) => void;
+  deleteCityAC: (name: string) => void;
 };
 
 type PropsType = MapStateToProps & DispatchStateToProps;
@@ -40,10 +43,11 @@ const GeneralPage: React.FC<PropsType> = ({
   getWeatherThunkCreator,
   updateWeatherThunkCreator,
   setCityNameAC,
+  deleteCityAC,
 }) => {
-  useEffect(() => {
-    updateWeatherThunkCreator("Kyiv");
-  }, []);
+  // useEffect(() => {
+  //   updateWeatherThunkCreator("Kyiv");
+  // }, []);
   return (
     <div>
       {cityGroup ? (
@@ -55,6 +59,7 @@ const GeneralPage: React.FC<PropsType> = ({
                 name={city.name}
                 temp={city.temp}
                 update={updateWeatherThunkCreator}
+                deleted={deleteCityAC}
               />
             );
           })}

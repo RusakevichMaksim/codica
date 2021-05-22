@@ -6,8 +6,9 @@ type Props = {
   name: string;
   temp: number;
   update: (name: string) => void;
+  deleted: (name: string) => void;
 };
-const Card: React.FC<Props> = ({ name, temp, update }) => {
+const Card: React.FC<Props> = ({ name, temp, update, deleted }) => {
   useEffect(() => {
     // console.log(cityGroup);
     // getWeatherThunkCreator("moscow");
@@ -27,15 +28,24 @@ const Card: React.FC<Props> = ({ name, temp, update }) => {
       <div>
         Temperature Value: <span> {temp}</span>
       </div>
-      <button
-        onClick={(e) => {
-          e.stopPropagation();
-          // console.log("test2");
-          update(name);
-        }}
-      >
-        Update
-      </button>
+      <div className="button__wrapper">
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            update(name);
+          }}
+        >
+          Update
+        </button>
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            deleted(name);
+          }}
+        >
+          Delete
+        </button>
+      </div>
     </div>
   );
 };

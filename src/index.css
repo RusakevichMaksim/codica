@@ -21,3 +21,10 @@
 body {
   background-color: black;
 }
+.button__wrapper {
+  display: flex;
+}
+.button__wrapper button {
+  padding: 10px;
+  margin: 20px;
+}
