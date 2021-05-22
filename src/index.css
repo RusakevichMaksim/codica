@@ -4,12 +4,6 @@
   flex-wrap: wrap;
   text-align: center;
 }
-.card div {
-  margin-bottom: 20px;
-}
-.card div span {
-  color: rgb(72, 216, 72);
-}
 body {
   background-color: rgb(231, 226, 226);
 }
@@ -27,4 +21,22 @@ body {
 
 .input__wrapper {
   margin: 10px 50px;
+}
+
+.details__wrapper {
+  color: black;
+  margin: 50px;
+}
+.details__wrapper div {
+  margin-bottom: 10px;
+  font-size: 20px;
+  display: flex;
+}
+.details__data {
+  color: red;
+  font-size: 30px;
+}
+.details__name {
+  width: 250px;
+  display: block;
 }

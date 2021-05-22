@@ -54,13 +54,32 @@ const Detail: React.FC<PropsType> = (props) => {
     console.log(props);
   });
   return (
-    <div style={{ color: "red" }}>
-      <div>City Name {cityName}</div>
-      <div>Current temperature {currentData.temp}</div>
-      <div>Feels like temperature {currentData.feels_like}</div>
-      <div>Feels like temperature {currentData.humidity}</div>
-      <div>Feels like temperature {currentData.temp_max}</div>
-      <div>Feels like temperature {currentData.temp_min}</div>
+    <div className="details__wrapper">
+      <div>
+        <span className="details__name"> City Name</span>
+        <span className="details__data">{cityName}</span>{" "}
+      </div>
+      <div>
+        <span className="details__name"> Current temperature</span>
+
+        <span className="details__data">{currentData.temp}</span>
+      </div>
+      <div>
+        <span className="details__name">Feels like temperature</span>
+        <span className="details__data">{currentData.feels_like}</span>
+      </div>
+      <div>
+        <span className="details__name">humidity</span>
+        <span className="details__data">{currentData.humidity}</span>
+      </div>
+      <div>
+        <span className="details__name"> temp_max</span>
+        <span className="details__data">{currentData.temp_max}</span>
+      </div>
+      <div>
+        <span className="details__name"> temp_min</span>
+        <span className="details__data">{currentData.temp_min}</span>
+      </div>
     </div>
   );
 };
