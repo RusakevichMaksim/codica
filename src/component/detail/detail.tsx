@@ -4,6 +4,7 @@ import { withRouter, RouteComponentProps } from "react-router";
 import { compose } from "redux";
 import { AppStateType } from "../../redux/store";
 import {
+  CityData,
   getWeatherThunkCreator,
   setCityNameAC,
 } from "../../redux/weatherReducer";
@@ -14,8 +15,6 @@ const mapDispatchToProps = {
 };
 const mapStateToProps = (state: AppStateType) => {
   return {
-    id: state.weatherReducer.id,
-    name: state.weatherReducer.citySelected,
     cityGroup: state.weatherReducer.cityGroup,
   };
 };
@@ -34,13 +33,34 @@ type PropsType = MapStateToProps &
   RouteComponentProps<TParams>;
 
 const Detail: React.FC<PropsType> = (props) => {
+  let cityName = props.match.params.CityName;
+  let currentData: CityData = {
+    id: 0,
+    lat: 0,
+    lon: 0,
+    name: "",
+    temp: 0,
+    feels_like: 0,
+    humidity: 0,
+    temp_max: 0,
+    temp_min: 0,
+  };
+  props.cityGroup.map((event: any) => {
+    if (event.name === cityName) {
+      currentData = event;
+    }
+  });
   useEffect(() => {
-    // console.log(props);
+    console.log(props);
   });
   return (
     <div style={{ color: "red" }}>
-      loremloremloremloremloremloremloremloremloremloremloremlorem lorem lorem
-      lorem lorem
+      <div>City Name {cityName}</div>
+      <div>Current temperature {currentData.temp}</div>
+      <div>Feels like temperature {currentData.feels_like}</div>
+      <div>Feels like temperature {currentData.humidity}</div>
+      <div>Feels like temperature {currentData.temp_max}</div>
+      <div>Feels like temperature {currentData.temp_min}</div>
     </div>
   );
 };

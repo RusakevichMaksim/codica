@@ -11,6 +11,10 @@ export type CityData = {
   lon: number;
   name: string;
   temp: number;
+  feels_like: number;
+  humidity: number;
+  temp_max: number;
+  temp_min: number;
 };
 
 export type InitialState = {
@@ -33,13 +37,16 @@ let initialState: InitialState = {
       lon: 30.5167,
       name: "Kyiv",
       temp: 19.55,
+      feels_like: 19,
+      humidity: 60,
+      temp_max: 20,
+      temp_min: 15,
     },
   ],
 };
 
 const doubleNameReject = (city: string, array: Array<string>) => {
   for (let i = 0; i < array.length; i++) {
-    // console.log(array[i], city);
     if (array[i] === city.toLowerCase()) {
       return true;
     }
@@ -137,6 +144,10 @@ export const getWeatherThunkCreator = (
           lat: data.coord.lat,
           name: data.name,
           temp: data.main.temp,
+          feels_like: data.main.feels_like,
+          humidity: data.main.humidity,
+          temp_max: data.main.temp_max,
+          temp_min: data.main.temp_min,
         })
       );
     } catch {
@@ -148,9 +159,7 @@ export const getWeatherThunkCreator = (
 export const updateWeatherThunkCreator = (
   name: string
 ): ThunkAction<Promise<void>, AppStateType, unknown, ActionTypes> => {
-  // console.log("aaaaa");
   return async (dispatch, getState) => {
-    // console.log("1111");
     try {
       let data = await weatherAPI.getCity(name);
       dispatch(
@@ -160,6 +169,10 @@ export const updateWeatherThunkCreator = (
           lat: data.coord.lat,
           name: data.name,
           temp: data.main.temp,
+          feels_like: data.main.feels_like,
+          humidity: data.main.humidity,
+          temp_max: data.main.temp_max,
+          temp_min: data.main.temp_min,
         })
       );
     } catch {
