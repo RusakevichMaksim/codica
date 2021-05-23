@@ -27,7 +27,7 @@ const doubleNameReject = (id: number, array: Array<CityDataType>) => {
   return false;
 };
 
-const weatherReducer = (
+export const weatherReducer = (
   state = initialState,
   action: ActionTypes
 ): InitialStateType => {
@@ -43,6 +43,10 @@ const weatherReducer = (
       return {
         ...state,
         cityGroup: [...state.cityGroup, action.newItem],
+        cityNameList: [
+          ...state.cityNameList,
+          action.newItem.name.toLocaleLowerCase(),
+        ],
       };
     case UPDATE_CITY_DATA:
       let index = state.cityGroup.findIndex(
@@ -64,6 +68,10 @@ const weatherReducer = (
         cityGroup: [
           ...state.cityGroup.slice(0, indexEl),
           ...state.cityGroup.slice(indexEl + 1),
+        ],
+        cityNameList: [
+          ...state.cityNameList.slice(0, indexEl),
+          ...state.cityNameList.slice(indexEl + 1),
         ],
       };
     default:

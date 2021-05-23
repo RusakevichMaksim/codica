@@ -32,7 +32,6 @@ const useStyles = makeStyles({
 const Cards: React.FC<Props> = ({ name, temp, update, deleted }) => {
   const classes = useStyles();
   useEffect(() => {
-    // console.log(cityGroup);
     // getWeatherThunkCreator("moscow");
   });
   let history = useHistory();

@@ -78,6 +78,7 @@ const GeneralPage: React.FC<PropsType> = ({
     });
   }, []);
   const classes = useStyles();
+
   return (
     <main>
       <Container className={classes.cardGrid} maxWidth="md">
