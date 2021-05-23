@@ -43,16 +43,11 @@ export const weatherReducer = (
       return {
         ...state,
         cityGroup: [...state.cityGroup, action.newItem],
-        cityNameList: [
-          ...state.cityNameList,
-          action.newItem.name.toLocaleLowerCase(),
-        ],
       };
     case UPDATE_CITY_DATA:
       let index = state.cityGroup.findIndex(
         (i) => i.name.toLowerCase() === action.newItem.name.toLowerCase()
       );
-      console.log(index);
       return Object.assign({}, state, {
         cityGroup: state.cityGroup
           .slice(0, index)
@@ -68,10 +63,6 @@ export const weatherReducer = (
         cityGroup: [
           ...state.cityGroup.slice(0, indexEl),
           ...state.cityGroup.slice(indexEl + 1),
-        ],
-        cityNameList: [
-          ...state.cityNameList.slice(0, indexEl),
-          ...state.cityNameList.slice(indexEl + 1),
         ],
       };
     default:

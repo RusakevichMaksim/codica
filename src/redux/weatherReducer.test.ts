@@ -1,7 +1,27 @@
-import { InitialStateType, UPDATE_CITY_DATA } from "./weatherReducerVariable";
+import {
+  InitialStateType,
+  UPDATE_CITY_DATA,
+  UpdateCityDataType,
+} from "./weatherReducerVariable";
 import { weatherReducer } from "./weatherReducer";
-test("weatherReducer", () => {
-  const state: InitialStateType = {
+
+let state: InitialStateType;
+let updateCityDataAction: UpdateCityDataType = {
+  type: UPDATE_CITY_DATA,
+  newItem: {
+    id: 123456,
+    lat: 55.4333,
+    lon: 35.5167,
+    name: "TestCity",
+    temp: 25.01,
+    feels_like: 33,
+    humidity: 70,
+    temp_max: 40,
+    temp_min: 10,
+  },
+};
+beforeEach(() => {
+  state = {
     fetching: false,
     id: 250,
     citySelected: "TestCity",
@@ -30,20 +50,10 @@ test("weatherReducer", () => {
       },
     ],
   };
-  let newState = weatherReducer(state, {
-    type: UPDATE_CITY_DATA,
-    newItem: {
-      id: 123456,
-      lat: 55.4333,
-      lon: 35.5167,
-      name: "TestCity",
-      temp: 25.01,
-      feels_like: 33,
-      humidity: 70,
-      temp_max: 40,
-      temp_min: 10,
-    },
-  });
-  expect(newState.cityGroup[0].temp).toBeFalsy();
-  expect(newState.cityGroup[1].temp).toBeTruthy();
+});
+
+test("UPDATE_CITY_DATA", () => {
+  let newState = weatherReducer(state, updateCityDataAction);
+  expect(newState.cityGroup[0].temp).toBe(19.55);
+  expect(newState.cityGroup[1].temp).toBe(25.01);
 });

@@ -20,7 +20,6 @@ export type InitialStateType = {
   id: number | null;
   fetching: boolean;
   citySelected: string;
-  cityNameList: Array<string>;
   cityGroup: Array<CityDataType>;
 };
 
@@ -28,7 +27,6 @@ export const initialState: InitialStateType = {
   fetching: false,
   id: null,
   citySelected: "",
-  cityNameList: ["kyiv"],
   cityGroup: [
     {
       id: 703448,
