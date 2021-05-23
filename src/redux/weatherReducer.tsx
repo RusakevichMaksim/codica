@@ -1,50 +1,24 @@
 import { ThunkAction } from "redux-thunk";
 import { weatherAPI } from "../api/openweather";
 import { AppStateType } from "./store";
-const SET_WEATHER_DATA = ` SET-WEATHER-DATA`;
-const SET_CITY_NAME = "SET-CITY-NAME";
-const SET_CITY_DATA = "SET-CITY-DATA";
-const UPDATE_CITY_DATA = "UPDATE-CITY_DATA";
-const DELETE_CITY = "DELETE_CITY";
-export type CityData = {
-  id: number;
-  lat: number;
-  lon: number;
-  name: string;
-  temp: number;
-  feels_like: number;
-  humidity: number;
-  temp_max: number;
-  temp_min: number;
-};
+import {
+  SET_WEATHER_DATA,
+  SET_CITY_NAME,
+  SET_CITY_DATA,
+  UPDATE_CITY_DATA,
+  DELETE_CITY,
+  CityDataType,
+  InitialStateType,
+  initialState,
+  SetCityNameType,
+  SetWeatherDataType,
+  SetCityDataType,
+  UpdateCityDataType,
+  DeleteCityType,
+  ActionTypes,
+} from "./weatherReducerVariable";
 
-export type InitialState = {
-  id: number | null;
-  citySelected: string;
-  cityGroup: Array<CityData>;
-};
-
-export type CityGroupType = {};
-
-let initialState: InitialState = {
-  id: null,
-  citySelected: "",
-  cityGroup: [
-    {
-      id: 703448,
-      lat: 50.4333,
-      lon: 30.5167,
-      name: "Kyiv",
-      temp: 19.55,
-      feels_like: 19,
-      humidity: 60,
-      temp_max: 20,
-      temp_min: 15,
-    },
-  ],
-};
-
-const doubleNameReject = (id: number, array: Array<CityData>) => {
+const doubleNameReject = (id: number, array: Array<CityDataType>) => {
   for (let i = 0; i < array.length; i++) {
     if (array[i].id === id) {
       return true;
@@ -56,7 +30,7 @@ const doubleNameReject = (id: number, array: Array<CityData>) => {
 const weatherReducer = (
   state = initialState,
   action: ActionTypes
-): InitialState => {
+): InitialStateType => {
   switch (action.type) {
     case SET_WEATHER_DATA:
       return { ...state, id: action.data };
@@ -96,59 +70,33 @@ const weatherReducer = (
       return state;
   }
 };
-export type SetWeatherDataType = {
-  type: typeof SET_WEATHER_DATA;
-  data: number;
-};
+
 export const setWeatherDataAC = (id: number): SetWeatherDataType => ({
   type: SET_WEATHER_DATA,
   data: id,
 });
 
-export type setCityNameType = {
-  type: typeof SET_CITY_NAME;
-  data: string;
-};
-
-export const setCityNameAC = (name: string): setCityNameType => ({
+export const setCityNameAC = (name: string): SetCityNameType => ({
   type: SET_CITY_NAME,
   data: name,
 });
 
-export type setCityDataType = {
-  type: typeof SET_CITY_DATA;
-  newItem: CityData;
-};
-
-export const setCityDataAC = (newItem: CityData): setCityDataType => ({
+export const setCityDataAC = (newItem: CityDataType): SetCityDataType => ({
   type: SET_CITY_DATA,
   newItem: newItem,
 });
 
-export type updateCityDataType = {
-  type: typeof UPDATE_CITY_DATA;
-  newItem: CityData;
-};
-export const updateCityDataAC = (newItem: CityData): updateCityDataType => ({
+export const updateCityDataAC = (
+  newItem: CityDataType
+): UpdateCityDataType => ({
   type: UPDATE_CITY_DATA,
   newItem: newItem,
 });
 
-export type deleteCityType = {
-  type: typeof DELETE_CITY;
-  name: string;
-};
-export const deleteCityAC = (name: string): deleteCityType => ({
+export const deleteCityAC = (name: string): DeleteCityType => ({
   type: DELETE_CITY,
   name: name,
 });
-
-type ActionTypes =
-  | SetWeatherDataType
-  | setCityDataType
-  | setCityNameType
-  | updateCityDataType
-  | deleteCityType;
 
 export const getWeatherThunkCreator = (
   name: string

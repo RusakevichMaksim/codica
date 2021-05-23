@@ -2,9 +2,9 @@ import { ComponentType, useEffect } from "react";
 import { connect } from "react-redux";
 import { withRouter, RouteComponentProps } from "react-router";
 import { compose } from "redux";
+import { CityDataType } from "redux/weatherReducerVariable";
 import { AppStateType } from "../../redux/store";
 import {
-  CityData,
   getWeatherThunkCreator,
   setCityNameAC,
 } from "../../redux/weatherReducer";
@@ -34,7 +34,7 @@ type PropsType = MapStateToProps &
 
 const Detail: React.FC<PropsType> = (props) => {
   let cityName = props.match.params.CityName;
-  let currentData: CityData = {
+  let currentData: CityDataType = {
     id: 0,
     lat: 0,
     lon: 0,

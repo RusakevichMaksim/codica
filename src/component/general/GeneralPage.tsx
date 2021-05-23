@@ -5,9 +5,7 @@ import {
   getWeatherThunkCreator,
   updateWeatherThunkCreator,
   setCityNameAC,
-  CityData,
   deleteCityAC,
-  CityGroupType,
 } from "../../redux/weatherReducer";
 
 import Cards from "./card/card";
@@ -16,6 +14,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Input } from "@material-ui/core";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
+import { CityDataType } from "redux/weatherReducerVariable";
 
 const mapDispatchToProps = {
   getWeatherThunkCreator,
@@ -74,7 +73,7 @@ const GeneralPage: React.FC<PropsType> = ({
   deleteCityAC,
 }) => {
   useEffect(() => {
-    cityGroup.map((e: CityData) => {
+    cityGroup.map((e: CityDataType) => {
       updateWeatherThunkCreator(e.name);
     });
   }, []);
@@ -84,7 +83,7 @@ const GeneralPage: React.FC<PropsType> = ({
       <Container className={classes.cardGrid} maxWidth="md">
         <Grid container spacing={4}>
           {cityGroup ? (
-            cityGroup.map((city: CityData, index: number) => (
+            cityGroup.map((city: CityDataType, index: number) => (
               <Grid item key={name + index} xs={12} sm={6} md={4}>
                 <Cards
                   key={name + index}
