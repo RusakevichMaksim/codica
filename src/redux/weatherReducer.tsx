@@ -11,7 +11,6 @@ import {
   InitialStateType,
   initialState,
   SetCityNameType,
-  SetWeatherDataType,
   SetCityDataType,
   UpdateCityDataType,
   DeleteCityType,
@@ -32,8 +31,6 @@ export const weatherReducer = (
   action: ActionTypes
 ): InitialStateType => {
   switch (action.type) {
-    case SET_WEATHER_DATA:
-      return { ...state, id: action.data };
     case SET_CITY_NAME:
       return { ...state, citySelected: action.data };
     case SET_CITY_DATA:
@@ -70,10 +67,10 @@ export const weatherReducer = (
   }
 };
 
-export const setWeatherDataAC = (id: number): SetWeatherDataType => ({
-  type: SET_WEATHER_DATA,
-  data: id,
-});
+// export const setWeatherDataAC = (id: number): SetWeatherDataType => ({
+//   type: SET_WEATHER_DATA,
+//   data: id,
+// });
 
 export const setCityNameAC = (name: string): SetCityNameType => ({
   type: SET_CITY_NAME,

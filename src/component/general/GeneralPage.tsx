@@ -24,7 +24,6 @@ const mapDispatchToProps = {
 };
 const mapStateToProps = (state: AppStateType) => {
   return {
-    id: state.weatherReducer.id,
     name: state.weatherReducer.citySelected,
     cityGroup: state.weatherReducer.cityGroup,
   };

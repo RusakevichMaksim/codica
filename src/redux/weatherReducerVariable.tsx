@@ -1,8 +1,8 @@
 export const SET_WEATHER_DATA = ` SET-WEATHER-DATA`;
 export const SET_CITY_NAME = "SET-CITY-NAME";
 export const SET_CITY_DATA = "SET-CITY-DATA";
-export const UPDATE_CITY_DATA = "UPDATE-CITY_DATA";
-export const DELETE_CITY = "DELETE_CITY";
+export const UPDATE_CITY_DATA = "UPDATE-CITY-DATA";
+export const DELETE_CITY = "DELETE-CITY";
 
 export type CityDataType = {
   id: number;
@@ -17,7 +17,6 @@ export type CityDataType = {
 };
 
 export type InitialStateType = {
-  id: number | null;
   fetching: boolean;
   citySelected: string;
   cityGroup: Array<CityDataType>;
@@ -25,7 +24,6 @@ export type InitialStateType = {
 
 export const initialState: InitialStateType = {
   fetching: false,
-  id: null,
   citySelected: "",
   cityGroup: [
     {
@@ -42,10 +40,10 @@ export const initialState: InitialStateType = {
   ],
 };
 
-export type SetWeatherDataType = {
-  type: typeof SET_WEATHER_DATA;
-  data: number;
-};
+// export type SetWeatherDataType = {
+//   type: typeof SET_WEATHER_DATA;
+//   data: number;
+// };
 
 export type SetCityNameType = {
   type: typeof SET_CITY_NAME;
@@ -68,7 +66,6 @@ export type DeleteCityType = {
 };
 
 export type ActionTypes =
-  | SetWeatherDataType
   | SetCityDataType
   | SetCityNameType
   | UpdateCityDataType
