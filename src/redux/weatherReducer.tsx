@@ -100,7 +100,7 @@ export const deleteCityAC = (name: string): DeleteCityType => ({
 export const getWeatherThunkCreator = (
   name: string
 ): ThunkAction<Promise<void>, AppStateType, unknown, ActionTypes> => {
-  return async (dispatch, getState) => {
+  return async (dispatch) => {
     try {
       let data = await weatherAPI.getCity(name);
       dispatch(
@@ -128,6 +128,7 @@ export const updateWeatherThunkCreator = (
   return async (dispatch, getState) => {
     try {
       let data = await weatherAPI.getCity(name);
+      console.log("asdad");
       dispatch(
         updateCityDataAC({
           id: data.id,

@@ -2,8 +2,9 @@ import {
   InitialStateType,
   UPDATE_CITY_DATA,
   UpdateCityDataType,
+  CityDataType,
 } from "./weatherReducerVariable";
-import { weatherReducer } from "./weatherReducer";
+import { weatherReducer, getWeatherThunkCreator } from "./weatherReducer";
 
 let state: InitialStateType;
 let updateCityDataAction: UpdateCityDataType = {
